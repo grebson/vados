@@ -1,0 +1,45 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="col-md-10 mx-auto">
+            <div class="mb-4 clearfix">
+                <div class="dropend float-end">
+                    <a class="btn btn-success dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Categories
+                    </a>
+                    <ul class="dropdown-menu ms-2">
+                        <li><a class="dropdown-item" href="{% url 'articles' %}">All</a></li>
+                        {% for category in categories %}
+                            <li><a class="dropdown-item" href="{% url 'category' category.id %}">{{ category }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <a class="btn btn-primary me-2 float-end" href="{% url 'create-article' %}">Create Article</a>
+            </div>
+        </div>
+
+        {% for article in articles %}
+            <div class="col-md-10 mx-auto">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title"><a href="{% url 'article' article.id %}">{{ article.title }}</a></h4>
+                        <p class="card-text">{{ article.content }}</p>
+                    </div>
+
+                    <div class="card-footer clearfix text-muted">
+                        {% if request.user == article.user or request.user.is_superuser %}
+                            <a class="btn btn-outline-danger float-end" href="{% url 'delete-article' article.id %}">Delete</a>
+                            <a class="btn btn-outline-primary me-2 float-end" href="{% url 'update-article' article.id %}">Edit</a>
+                        {% else %}
+                            {{ article.user.email }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock content %}

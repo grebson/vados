@@ -1,0 +1,24 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="col-md-10 mx-auto">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4 class="card-title">{{ article.title }}</h4>
+                        <p class="card-text">{{ article.content }}</p>
+                </div>
+
+                {% if request.user == article.user or request.user.is_superuser %}
+                    <div class="card-footer clearfix text-muted">
+                        <a class="btn btn-outline-danger float-end" href="{% url 'delete-article' article.id %}">Delete</a>
+                        <a class="btn btn-outline-primary me-2 float-end" href="{% url 'update-article' article.id %}">Edit</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
