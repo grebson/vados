@@ -47,10 +47,16 @@ class UserAdmin(BaseUserAdmin):
                 'fields': ('last_login', 'date_joined'),
             },
         ),
+        (
+            _('School related info'),
+            {
+                'fields': ('is_student', 'is_teacher', 'is_principal')
+            },
+        ),
     )
     filter_horizontal = ('groups', 'user_permissions')
     form = UserUpdateForm
-    list_display = ('email', 'first_name', 'last_name', 'is_staff')
+    list_display = ('email', 'first_name', 'last_name', 'is_student', 'is_teacher', 'is_principal')
     ordering = ('email',)
     search_fields = ('email', 'first_name', 'last_name')
 

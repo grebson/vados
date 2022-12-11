@@ -45,6 +45,27 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     last_login = models.DateTimeField(_('last login'), blank=True, null=True)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+    is_student = models.BooleanField(
+        _('student status'),
+        default=False,
+        help_text=_(
+            'Designates whether this user should be treated as student.'
+        ),
+    )
+    is_teacher = models.BooleanField(
+        _('teacher status'),
+        default=False,
+        help_text=_(
+            'Designates whether this user should be treated as teacher.'
+        ),
+    )
+    is_principal = models.BooleanField(
+        _('principal status'),
+        default=False,
+        help_text=_(
+            'Designates whether this user should be treated as principal.'
+        ),
+    )
 
     objects = UserManager()
 
